@@ -14,3 +14,21 @@ jobs:
     #     python -m pip download --quiet --no-binary :all: --no-deps "nitrate-tcms==$RELEASE_VERSION" && :
     - name: Publish to PyPI
       run: echo push tag $RELEASE_VERSION
+
+  rpm-build:
+    runs-on: ubuntu-latest
+    needs: pypi
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Fedora package
+      run: |
+        docker run --name package-build -v $PWD:/code:Z registry.fedoraproject.org/fedora:32 /bin/bash -c "
+          dnf install -y make rpm-build
+        "
+
+  image-build:
+    runs-on: ubuntu-latest
+    needs: rpm-build
+    steps:
+    - uses: actions/checkout@v2
+    - run: echo build image
