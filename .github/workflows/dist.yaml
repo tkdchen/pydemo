@@ -30,7 +30,7 @@ jobs:
         docker run --name package-build -v $PWD:/code:Z registry.fedoraproject.org/fedora:32 /bin/bash -c "
           dnf install -y copr-cli
           cd /code
-          copr-cli --conf ./copr_conf build coolempty-0.12-1.fc32.src.rpm
+          copr-cli --conf ./copr_conf build cqi/fake-empty-package coolempty-0.12-1.fc32.src.rpm
         "
 
   image-build:
