@@ -35,6 +35,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: echo build image
+    - run: |
+        echo "RELEASE_VERSION=$(echo "${{ github.ref }}" | sed 's#refs/tags/v##')" >> $GITHUB_ENV
     - name: Publish image
       run: |
-        echo "make release-image VERSION=4.9"
+        echo "make release-image VERSION=${RELEASE_VERSION}"
