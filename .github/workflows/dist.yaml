@@ -9,6 +9,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - run: python setup.py sdist
+
     - name: Publish distribution 📦 to test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
