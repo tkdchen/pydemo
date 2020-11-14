@@ -21,7 +21,7 @@ jobs:
   copr-build:
     name: Build rpm in Fedora Copr
     runs-on: ubuntu-latest
-    needs: pypi
+    #needs: pypi
     steps:
     - uses: actions/checkout@v2
     - run: echo "${{ secrets.COPR_CONF }}" > copr_conf
