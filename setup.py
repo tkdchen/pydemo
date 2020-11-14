@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='pydemo',
-    version='0.1.0',
+    version='0.6.0',
     description='pydemo package',
     maintainer='Chenxiong Qi',
     maintainer_email='qcxhome@gmail.com',
