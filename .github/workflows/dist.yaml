@@ -35,7 +35,7 @@ jobs:
 
   image-build:
     runs-on: ubuntu-latest
-    needs: rpm-build
+    needs: copr-build
     steps:
     - uses: actions/checkout@v2
     - run: echo build image
