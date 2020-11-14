@@ -9,10 +9,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Publish distribution 📦 to PyPI
+    - name: Publish distribution 📦 to test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
 
   rpm-build:
     runs-on: ubuntu-latest
