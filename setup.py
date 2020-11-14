@@ -3,9 +3,9 @@ from setuptools import setup
 
 
 setup(
-    name='pydemo',
-    version='0.6.0',
-    description='pydemo package',
+    name='nitrate-tcms-rest-api',
+    version='0.7.0',
+    description='A Python demo package',
     maintainer='Chenxiong Qi',
     maintainer_email='qcxhome@gmail.com',
     url='https://github.com/tkdchen/pydemo',
