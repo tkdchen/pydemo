@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='nitrate-tcms-rest-api',
-    version='0.13.0',
+    version='0.14.0',
     description='A Python demo package',
     maintainer='Chenxiong Qi',
     maintainer_email='qcxhome@gmail.com',

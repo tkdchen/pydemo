@@ -43,5 +43,7 @@ jobs:
         echo "RELEASE_VERSION=$(echo "${{ github.ref }}" | sed 's#refs/tags/v##')" >> $GITHUB_ENV
     - name: Publish image
       run: |
-        docker build -t testimage:${RELEASE_VERSION} .
+        docker build -t quay.io/tkdchen/pydemo:${RELEASE_VERSION} .
+        echo "${{ secrets.quay_token }}" | docker login -u ${{ secrets.username }} --password-stdin quay.io
+        docker push quay.io/tkdchen/pydemo:${RELEASE_VERSION}
 
