@@ -6,6 +6,7 @@ jobs:
   pypi:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
 
@@ -18,27 +19,27 @@ jobs:
         #password: ${{ secrets.PYPI_TOKEN }}
         #repository_url: https://test.pypi.org/legacy/
 
-  copr-build:
-    name: Build rpm in Fedora Copr
-    runs-on: ubuntu-latest
-    #needs: pypi
-    steps:
-    - uses: actions/checkout@v2
-    - run: echo "${{ secrets.COPR_CONF }}" > copr_conf
-    - name: Build the package
-      run: |
-        docker run --name package-build -v $PWD:/code:Z registry.fedoraproject.org/fedora:32 /bin/bash -c "
-          dnf install -y copr-cli
-          cd /code
-          copr-cli --conf ./copr_conf build cqi/fake-empty-package coolempty-0.12-1.fc32.src.rpm
-        "
+  # copr-build:
+  #   name: Build rpm in Fedora Copr
+  #   runs-on: ubuntu-latest
+  #   #needs: pypi
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - run: echo "${{ secrets.COPR_CONF }}" > copr_conf
+  #   - name: Build the package
+  #     run: |
+  #       docker run --name package-build -v $PWD:/code:Z registry.fedoraproject.org/fedora:32 /bin/bash -c "
+  #         dnf install -y copr-cli
+  #         cd /code
+  #         copr-cli --conf ./copr_conf build cqi/fake-empty-package coolempty-0.12-1.fc32.src.rpm
+  #       "
 
   image-build:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
-    needs: copr-build
+    # needs: copr-build
     steps:
     - uses: actions/checkout@v2
-    - run: echo build image
     - run: |
         echo "RELEASE_VERSION=$(echo "${{ github.ref }}" | sed 's#refs/tags/v##')" >> $GITHUB_ENV
     - name: Publish image
