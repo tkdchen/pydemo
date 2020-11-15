@@ -45,5 +45,5 @@ jobs:
     - name: Publish image
       run: |
         docker build -t quay.io/tkdchen/pydemo:${RELEASE_VERSION} .
-        docker login quay.io -u ${{ secrets.quay_username }} -p ${{ secrets.quay_password }}
+        docker login quay.io -u ${{ secrets.quay_username }} -p ${{ secrets.quay_token }}
         docker push quay.io/tkdchen/pydemo:${RELEASE_VERSION}
