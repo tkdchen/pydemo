@@ -3,7 +3,7 @@ name: Distribution
 on:
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   copr-build:
