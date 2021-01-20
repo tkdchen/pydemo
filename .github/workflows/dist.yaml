@@ -29,3 +29,6 @@ jobs:
           make tarball srpm
           copr-cli --conf /code/copr_conf build cqi/python-nitrate-tcms-testing dist/python-nitrate-tcms-*.src.rpm
         "
+    - name: Build the image
+      run: |
+        docker build -t nitrate:test .
