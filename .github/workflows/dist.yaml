@@ -7,7 +7,7 @@ on:
 
 jobs:
   copr-build:
-    # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
     name: Build latest RPM
     runs-on: ubuntu-latest
     steps:
