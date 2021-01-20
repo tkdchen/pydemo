@@ -31,8 +31,6 @@ jobs:
     needs: copr-build
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Build the image
-      run: |
-        docker build -t nitrate:test .
+    - uses: actions/checkout@v2
+    - run: docker build -t nitrate:test .
+    - run: docker run nitrate:test
