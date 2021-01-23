@@ -22,5 +22,5 @@ jobs:
         echo "NITRATE_LAST_COMMIT=${last_commit}" >> $GITHUB_ENV
     - run: |
         docker run -t registry.fedoraproject.org/fedora:33 /bin/bash -c "
-          echo "version: ${NITRATE_VERSION}; commits: $NITRATE_COMMITS; last_commit: ${NITRATE_LAST_COMMIT}%{?dist}"
+          echo 'version: ${NITRATE_VERSION}; commits: $NITRATE_COMMITS; last_commit: ${NITRATE_LAST_COMMIT}%{?dist}'
         "
