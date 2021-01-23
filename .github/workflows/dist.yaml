@@ -1,4 +1,4 @@
-name: Distribution
+name: Demo Workflow
 
 on:
   push:
@@ -11,26 +11,11 @@ jobs:
     name: Build latest RPM
     runs-on: ubuntu-latest
     steps:
-    - run: echo "${{ secrets.COPR_CONF }}" > copr_conf
-    - name: Build the package
-      run: |
-        docker run --name package-build -v $PWD:/code:Z registry.fedoraproject.org/fedora:32 /bin/bash -c "
-          dnf install -y git make rpmdevtools copr-cli rpm-build python3
-          cd
-          git clone https://github.com/Nitrate/Nitrate
-          cd Nitrate
-          git checkout develop
-          IFS='-' read version commits last_commit <<< \$(git describe)
-          rpmdev-bumpspec -n \"\$(cat VERSION.txt)-\$commits.\$last_commit%{?dist}\" -c 'Rebuilt for latest' -u 'autobuild <autobuild@localhost>' -D python-nitrate-tcms.spec
-          make tarball srpm
-          copr-cli --conf /code/copr_conf build cqi/python-nitrate-tcms-testing dist/python-nitrate-tcms-*.src.rpm
-        "
-
-  build-image:
-    name: Build the image
-    needs: copr-build
-    runs-on: ubuntu-latest
-    steps:
     - uses: actions/checkout@v2
-    - run: docker build -t nitrate:test .
-    - run: docker run nitrate:test
+    - run: |
+        IFS='-' read version commits last_commit <<< $(git describe)
+        echo "NITRATE_VERSION=${version}" >> $GITHUB_ENV
+        echo "NITRATE_COMMITS=${commits}" >> $GITHUB_ENV
+        echo "NITRATE_LAST_COMMIT=${last_commit}" >> $GITHUB_ENV
+    - run: |
+        echo "version: $NITRATE_VERSION; commits: $NITRATE_COMMITS; last_commit: $NITRATE_LAST_COMMIT"
