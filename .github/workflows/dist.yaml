@@ -8,12 +8,13 @@ on:
 jobs:
   copr-build:
     if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
-    name: Build latest RPM
+    name: Try something
     runs-on: ubuntu-latest
     steps:
+    - run: sudo apt-get install git
     - uses: actions/checkout@v2
     - run: |
-        IFS='-' read version commits last_commit <<< $(git describe)
+        IFS='-' read version commits last_commit <<< $(git describe --tags)
         echo "NITRATE_VERSION=${version}" >> $GITHUB_ENV
         echo "NITRATE_COMMITS=${commits}" >> $GITHUB_ENV
         echo "NITRATE_LAST_COMMIT=${last_commit}" >> $GITHUB_ENV
