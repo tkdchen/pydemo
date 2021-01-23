@@ -21,4 +21,4 @@ jobs:
         echo "NITRATE_COMMITS=${commits}" >> $GITHUB_ENV
         echo "NITRATE_LAST_COMMIT=${last_commit}" >> $GITHUB_ENV
     - run: |
-        echo "version: $NITRATE_VERSION; commits: $NITRATE_COMMITS; last_commit: $NITRATE_LAST_COMMIT"
+        echo "version: ${NITRATE_VERSION}; commits: $NITRATE_COMMITS; last_commit: ${NITRATE_LAST_COMMIT}%{?dist}"
