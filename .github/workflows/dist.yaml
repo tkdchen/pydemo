@@ -13,10 +13,10 @@ jobs:
     steps:
     - run: sudo apt-get install git
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
     - run: |
-        ls
-        git describe
-        IFS='-' read version commits last_commit <<< $(git describe --tags)
+        IFS='-' read version commits last_commit <<< $(git describe)
         echo "NITRATE_VERSION=${version}" >> $GITHUB_ENV
         echo "NITRATE_COMMITS=${commits}" >> $GITHUB_ENV
         echo "NITRATE_LAST_COMMIT=${last_commit}" >> $GITHUB_ENV
